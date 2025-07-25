@@ -44,6 +44,13 @@ def append_left(text: str):
     cursor.insertText(f"🤖 {text}")
     zone_affichage.setTextCursor(cursor)
 
+def ajouter_chat(nom="Sans titre"):
+    bouton = QPushButton(nom)
+    bouton.clicked.connect(lambda _, n=nom: on_element_click(n))
+    contenu_gauche.addWidget(bouton)
+    chats_enregistres.append(nom)
+
+
 # 6. Fonction principale pour envoyer message + réponse auto
 def envoyer_message():
     texte = zone_texte.text().strip()
@@ -64,12 +71,14 @@ def on_element_click(nom: str):
     if nom == "+ Nouveau Chat":
         zone_affichage.clear()
         append_left("🆕 Nouveau chat lancé.")
+        ajouter_chat()  # 👈 ajoute le bouton "Sans titre"
     
     elif nom == "🔍 Rechercher Chat":
         append_left("🔍 Recherche non implémentée.")
     
     else:
         append_left(f"🤖 Tu as cliqué sur : {nom}")
+
 
 # Boutons de base
 for nom in ["+ Nouveau Chat", "🔍 Rechercher Chat"]:
